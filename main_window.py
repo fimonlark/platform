@@ -6,10 +6,10 @@ from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from news_getter import NewsGetter
 
-print(NewsGetter().news_text)
+hrefs = NewsGetter().get_href()
 
 class MyApp(App):
-    def build(self):
+       def build(self):
         main_layout = GridLayout(rows=2, cols=1)
 
         bottom_button = BoxLayout()
@@ -19,8 +19,14 @@ class MyApp(App):
         bottom_button.add_widget(Button(text='Books'))
 
         news_grid = GridLayout(rows=3, cols=3, padding=[15], spacing=[5, 5])
+
         for i in range(9):
-            news_grid.add_widget(Button(text=str(i)))
+            NG = NewsGetter()
+            NG.get_news()
+            print(NG.news_text)
+            b = Button(text=NG.news_text[i])
+            news_grid.add_widget(b)
+            b.bind(on_press=lambda x:NG.open_browser(hrefs[i]))
 
 
         alc = AnchorLayout(anchor_x='center', anchor_y='top')
