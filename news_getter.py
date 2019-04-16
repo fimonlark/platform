@@ -18,18 +18,12 @@ class NewsGetter():
 
         #print(self.news_text)
 
-        with open('news.txt', 'w') as f:
-            f.write(str(self.news_text))
-
 
     def get_href(self):
         soup = BeautifulSoup(self.page, features="lxml")
         elems = soup.select("div.info h3 a", limit=9)
         for i in range(len(elems)):
             self.news_hrefs.append(elems[i].attrs["href"])
-
-        with open('hrefs.txt', 'w') as f:
-            f.write(str(self.news_hrefs))
 
         #print(self.news_hrefs)
 
